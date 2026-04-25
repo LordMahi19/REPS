@@ -11,22 +11,62 @@
 ## Project Overview
 This project is a multi-generation renewable energy plant system that manages solar, wind, and hydropower energy production. The system reads and analyzes energy generation data, detects issues (like equipment malfunctions), and provides a robust alert system. 
 
-The core logic is implemented in **Scala**, strictly adhering to Functional Programming paradigms:
+The core logic is implemented in **Scala 3**, strictly adhering to Functional Programming paradigms:
 * Immutable data structures
 * Iteration via recursion
 * Higher-order functions
-* Functional error handling
+* Functional error handling (custom `RepsResult[A]` ADT)
 
 ## Project Architecture
 The codebase is structured to separate pure functional logic from imperative I/O operations:
 
-* `src/main/scala/models/` - Immutable classes/traits for energy sources (Solar, Wind, Hydro).
-* `src/main/scala/analysis/` - Pure functions for data analytics (Mean, Median, Mode, Range, Midrange).
-* `src/main/scala/alerts/` - Functional issue detection system.
-* `src/main/scala/io/` - Imperative file reading/writing (.csv or .xls).
-* `data/` - Dummy energy data sets.
-* `docs/` - System diagrams (Sequence & Class diagrams).
-* `advanced_topic/` - Independent implementation of the chosen advanced Scala concept.
+```
+REPS/
+├── build.sbt                         # Scala 3.3.1, ScalaTest dependency
+├── project/build.properties          # sbt version lock (1.9.7)
+├── src/
+│   ├── main/scala/
+│   │   ├── Main.scala                # Application entry point (@main)
+│   │   ├── models/                   # Immutable data structures
+│   │   │   ├── EnergySource.scala    #   Sealed enum: Solar, Wind, Hydro
+│   │   │   └── EnergyReading.scala   #   Case class for one data reading
+│   │   ├── analysis/                 # Pure statistical analysis functions
+│   │   │   ├── StatisticsAnalysis.scala  # Mean, Median, Mode, Range, Midrange
+│   │   │   └── DataFilter.scala      #   Filtering, sorting, searching
+│   │   ├── alerts/                   # Issue detection & alert system
+│   │   │   └── AlertSystem.scala     #   Alert generation & formatting
+│   │   ├── io/                       # Imperative file I/O (CSV)
+│   │   │   └── FileIO.scala          #   CSV reading & writing
+│   │   └── utils/                    # Cross-cutting utilities
+│   │       └── ErrorHandler.scala    #   RepsResult[A] ADT & validation
+│   └── test/scala/
+│       ├── analysis/
+│       │   └── StatisticsAnalysisTest.scala
+│       └── utils/
+│           └── ErrorHandlerTest.scala
+├── data/                             # Fingrid energy datasets (.csv)
+│   ├── solar-power-generation-forecast-updated-every-15-minutes.csv
+│   ├── wind-power-production-real-time-data.csv
+│   └── hydro-power-produciton-real-time-data.csv
+├── docs/                             # Sequence & class diagrams
+└── advanced_topic/                   # Part II: Functor or Laziness
+```
+
+## Data Format (Fingrid CSV)
+All data files are downloaded from [Fingrid.fi](https://www.fingrid.fi/) and use **semicolons** as delimiters with quoted fields:
+
+```csv
+"startTime";"endTime";"<measurement name>"
+"2025-12-31T22:00:00.000Z";"2025-12-31T22:03:00.000Z";1698
+```
+
+| Column | Description |
+|--------|-------------|
+| `startTime` | Start of the measurement interval (ISO-8601 UTC) |
+| `endTime` | End of the measurement interval (ISO-8601 UTC) |
+| Value column | Energy output in **MW** (megawatts) |
+
+Data covers the period **2025-12-31** to **2026-04-24**.
 
 ## Setup Instructions
 
@@ -37,14 +77,31 @@ The codebase is structured to separate pure functional logic from imperative I/O
 git clone <your-github-repo-url>
 cd REPS
 ```
-2. **compile the project**
+2. **Compile the project:**
 ```bash
 sbt compile
 ```
-3. **run the project**
+3. **Run the project:**
 ```bash
 sbt run
 ```
+4. **Run tests:**
+```bash
+sbt test
+```
+
+## Functional Programming Concepts Used
+
+| Concept | Where |
+|---------|-------|
+| **Immutable data** | `models/` — case classes, sealed enum |
+| **Recursion** | `analysis/StatisticsAnalysis` — all stats computed recursively |
+| **Higher-order functions** | `analysis/DataFilter.search`, `StatisticsAnalysis.analyzeReadings` |
+| **Type parameterization** | `RepsResult[A]`, `analyzeReadings[A]` |
+| **Pattern matching** | `RepsResult.map/flatMap/fold`, `EnergySource.fromString` |
+| **ADT error handling** | `utils/ErrorHandler` — `RepsResult[A]` sealed trait |
+| **Currying** | _(to be demonstrated in implementations)_ |
+
 ## Task Division Checklist
 
 ### Mahi (Core Architecture & Analysis)
