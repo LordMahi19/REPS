@@ -83,13 +83,29 @@ class ErrorHandlerTest extends AnyFunSuite:
   // validateDateFormat
   // -------------------------------------------------------------------------
   test("validateDateFormat should succeed for valid DD/MM/YYYY"):
-    // TODO: Mahi — uncomment when validateDateFormat is implemented
-    // val result = RepsResult.validateDateFormat("12/04/2024")
-    // assert(result == Success((12, 4, 2024)))
-    pending
+    val result = RepsResult.validateDateFormat("12/04/2024")
+    assert(result == Success((12, 4, 2024)))
 
-  test("validateDateFormat should fail for invalid format"):
-    // TODO: Mahi — uncomment when validateDateFormat is implemented
-    // val result = RepsResult.validateDateFormat("April 12, 2024")
-    // assert(result.isFailure)
-    pending
+  test("validateDateFormat should succeed for another valid date"):
+    val result = RepsResult.validateDateFormat("01/01/2026")
+    assert(result == Success((1, 1, 2026)))
+
+  test("validateDateFormat should fail for natural-language date format"):
+    val result = RepsResult.validateDateFormat("April 12, 2024")
+    assert(result.isFailure)
+
+  test("validateDateFormat should fail for ISO date format without slashes"):
+    val result = RepsResult.validateDateFormat("2024-04-12")
+    assert(result.isFailure)
+
+  test("validateDateFormat should fail for invalid month (13)"):
+    val result = RepsResult.validateDateFormat("12/13/2024")
+    assert(result.isFailure)
+
+  test("validateDateFormat should fail for invalid day (00)"):
+    val result = RepsResult.validateDateFormat("00/04/2024")
+    assert(result.isFailure)
+
+  test("validateDateFormat should fail for empty string"):
+    val result = RepsResult.validateDateFormat("")
+    assert(result.isFailure)
