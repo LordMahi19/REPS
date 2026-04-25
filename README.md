@@ -74,7 +74,7 @@ Data covers the period **2025-12-31** to **2026-04-24**.
 
 1. **Clone the repository:**
 ```bash
-git clone <your-github-repo-url>
+git clone https://github.com/LordMahi19/REPS.git
 cd REPS
 ```
 2. **Compile the project:**
