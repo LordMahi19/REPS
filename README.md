@@ -142,27 +142,27 @@ sbt test
 ### Oyshe (Data I/O, Filtering & Search) — *GitHub Codebase*
 
 #### UC2 — File I/O (imperative, as allowed by spec)
-- [ ] Implement `readCsv` in `FileIO.scala` — parse Fingrid semicolon-delimited CSV into `List[EnergyReading]`.
-- [ ] Implement `writeCsv` in `FileIO.scala` — write a list of readings back to a CSV file (UC2: storing data).
+- [x] Implement `readCsv` in `FileIO.scala` — parse Fingrid semicolon-delimited CSV into `List[EnergyReading]`.
+- [x] Implement `writeCsv` in `FileIO.scala` — write a list of readings back to a CSV file (UC2: storing data).
 
 #### UC4 — Filtering, Sorting & Searching
-- [ ] Implement `filterByHour` in `DataFilter.scala`.
-- [ ] Implement `filterByDay` in `DataFilter.scala`.
-- [ ] Implement `filterByWeek` in `DataFilter.scala`.
-- [ ] Implement `filterByMonth` in `DataFilter.scala`.
-- [ ] Implement `sortByTime` (ascending) in `DataFilter.scala`.
-- [ ] Implement `sortByEnergyDesc` (descending by output) in `DataFilter.scala`.
-- [ ] Implement `search` with a user-facing interface — allow operators to search by date, source, or MW threshold.
+- [x] Implement `filterByHour` in `DataFilter.scala`.
+- [x] Implement `filterByDay` in `DataFilter.scala`.
+- [x] Implement `filterByWeek` in `DataFilter.scala`.
+- [x] Implement `filterByMonth` in `DataFilter.scala`.
+- [x] Implement `sortByTime` (ascending) in `DataFilter.scala`.
+- [x] Implement `sortByEnergyDesc` (descending by output) in `DataFilter.scala`.
+- [x] Implement `search` with a user-facing interface — allow operators to search by date, source, or MW threshold.
 
 #### Part II — Advanced Topic (Functor or Strictness/Laziness)
-- [ ] Choose one topic: **Functor** or **Strictness/Laziness** (pick one concept within Strictness/Laziness).
-- [ ] Write a **small but meaningful standalone Scala implementation** of the chosen topic in `advanced_topic/`.
+- [x] Choose one topic: **Functor** or **Strictness/Laziness** (pick one concept within Strictness/Laziness).
+- [x] Write a **small but meaningful standalone Scala implementation** of the chosen topic in `advanced_topic/`.
 - [ ] Write the **Part B theory section** of the report (max 1 page): clear theoretical explanation + references.
 - [ ] **Export** the standalone implementation as a single file named `GroupName_project.scala`.
 - [ ] **Submit** `GroupName_project.scala` to Moodle (only one group member submits).
 
 #### Code Quality
-- [ ] Ensure all source files include the team member names header comment.
+- [x] Ensure all source files include the team member names header comment.
 
 ---
 
