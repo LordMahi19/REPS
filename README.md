@@ -104,37 +104,113 @@ sbt test
 
 ## Task Division Checklist
 
-### Mahi (Core Architecture & Analysis)
+> **Point breakdown:** Part I: 32 pts (Code 20 + Video 5 + Report A 7) | Part II: 8 pts (Theory 3.5 + References 1 + Code 3.5) | **Total: 40 pts**
 
-- [ ] Define the immutable Scala data structures (`models/`).
-    
-- [ ] Implement mathematical analysis functions recursively (`analysis/`).
-    
-- [ ] Implement functional error-handling mechanisms.
-    
+---
 
-### Oyshe (Data I/O, Filtering & Advanced Topic)
+### Mahi (Core Architecture & Analysis) — *GitHub Codebase*
 
-- [ ] Implement imperative file reading/writing for `.csv`/`.xls` (`io/`).
-    
-- [ ] Build hourly/daily/weekly/monthly sorting and filtering logic.
-    
-- [ ] Write the theoretical explanation and separate code for the Advanced Topic (Functor or Strictness/Laziness).
-    
-- [ ] **Submit** `GroupName_project.scala` to Moodle.
-    
+#### UC1 & UC4 — Models & Statistical Analysis
+- [x] Define the immutable `EnergySource` sealed enum (`Solar`, `Wind`, `Hydro`) with safe `fromString` parser.
+- [x] Define the immutable `EnergyReading` case class (startTime, endTime, energyMW).
+- [ ] Implement `mean` recursively in `StatisticsAnalysis.scala`.
+- [ ] Implement `median` recursively in `StatisticsAnalysis.scala`.
+- [ ] Implement `mode` recursively in `StatisticsAnalysis.scala`.
+- [ ] Implement `range` recursively in `StatisticsAnalysis.scala`.
+- [ ] Implement `midrange` recursively in `StatisticsAnalysis.scala`.
 
-### Nguyen (Alerts, Diagrams & Final Submission)
+#### Functional Programming Paradigm (required for full marks)
+- [x] Implement `RepsResult[A]` ADT with `map`, `flatMap`, `fold`, `getOrElse`, `attempt` (`utils/ErrorHandler.scala`).
+- [ ] Implement `validateDateFormat` — validate DD/MM/YYYY input with helpful error messages.
+- [ ] Implement at least one example of **currying** (e.g., a curried filter or analysis function).
+- [ ] Ensure **type parameterization** is demonstrated (e.g., `analyzeReadings[A]` in `StatisticsAnalysis`).
 
-- [ ] Implement the plant alert system (`alerts/`).
-    
-- [ ] Create all Sequence Flow Diagrams and the Class Diagram.
-    
-- [ ] Record the 5-minute system demonstration video and upload it to OneDrive.
-    
-- [ ] Assemble the Final Report (Diagrams + Theory + AI Declaration) into a PDF.
-    
-- [ ] **Submit** the final `GroupName_project.zip` to Moodle.
-    
+#### CLI / View (UC1 & UC3)
+- [ ] Build the interactive text-based **main menu** in `Main.scala`:
+  - Load data (Solar / Wind / Hydro) from CSV.
+  - Display a summary view of current energy generation per source (UC3).
+  - Trigger analysis (mean, median, mode, range, midrange) from the menu.
+  - Trigger alert check from the menu (calls `AlertSystem`).
 
-_(Reminder: Every team member must individually submit their Peer Evaluation Form to Moodle before the deadline!)_
+#### Code Quality (mandatory deliverable)
+- [ ] Ensure **all source files** include a header comment listing all team member names (Mahi, Oyshe, Nguyen).
+- [ ] Ensure all functions and classes are well-commented with descriptions.
+
+---
+
+### Oyshe (Data I/O, Filtering & Search) — *GitHub Codebase*
+
+#### UC2 — File I/O (imperative, as allowed by spec)
+- [ ] Implement `readCsv` in `FileIO.scala` — parse Fingrid semicolon-delimited CSV into `List[EnergyReading]`.
+- [ ] Implement `writeCsv` in `FileIO.scala` — write a list of readings back to a CSV file (UC2: storing data).
+
+#### UC4 — Filtering, Sorting & Searching
+- [ ] Implement `filterByHour` in `DataFilter.scala`.
+- [ ] Implement `filterByDay` in `DataFilter.scala`.
+- [ ] Implement `filterByWeek` in `DataFilter.scala`.
+- [ ] Implement `filterByMonth` in `DataFilter.scala`.
+- [ ] Implement `sortByTime` (ascending) in `DataFilter.scala`.
+- [ ] Implement `sortByEnergyDesc` (descending by output) in `DataFilter.scala`.
+- [ ] Implement `search` with a user-facing interface — allow operators to search by date, source, or MW threshold.
+
+#### Part II — Advanced Topic (Functor or Strictness/Laziness)
+- [ ] Choose one topic: **Functor** or **Strictness/Laziness** (pick one concept within Strictness/Laziness).
+- [ ] Write a **small but meaningful standalone Scala implementation** of the chosen topic in `advanced_topic/`.
+- [ ] Write the **Part B theory section** of the report (max 1 page): clear theoretical explanation + references.
+- [ ] **Export** the standalone implementation as a single file named `GroupName_project.scala`.
+- [ ] **Submit** `GroupName_project.scala` to Moodle (only one group member submits).
+
+#### Code Quality
+- [ ] Ensure all source files include the team member names header comment.
+
+---
+
+### Nguyen (Alerts, Diagrams & Final Submission) — *Report + Video + Submission*
+
+#### UC5 — Alert System
+- [ ] Implement `detectIssues` in `AlertSystem.scala`:
+  - Detect **low energy output** (below configurable MW threshold).
+  - Detect **equipment malfunction** (e.g., consecutive zero readings).
+  - Generate `Alert` objects with appropriate `AlertSeverity` (Info / Warning / Critical).
+- [ ] Implement `formatAlerts` — display alerts clearly to operators.
+- [ ] Ensure error handling uses `RepsResult` where applicable.
+
+#### Report Part A — Diagrams (7 pts)
+- [ ] Draw **Sequence Diagram for UC1** — Monitor & control energy sources.
+- [ ] Draw **Sequence Diagram for UC2** — Collect & store energy data to file.
+- [ ] Draw **Sequence Diagram for UC3** — View energy generation & storage capacity.
+- [ ] Draw **Sequence Diagram for UC4** — Analyze, filter, sort & search data.
+- [ ] Draw **Sequence Diagram for UC5** — Detect issues & generate alerts.
+- [ ] Draw **Class Diagram** — showing connections between all entities (models, analysis, alerts, io, utils).
+- [ ] Use proper diagram tools (no paper/pen drawings).
+
+#### Report Structure (mandatory for grading)
+- [ ] **Title page** — project name, all team member names, group number.
+- [ ] **Part A section** — all 5 sequence diagrams + class diagram.
+- [ ] **Part B section** — Oyshe's advanced topic theory + references (max 1 page).
+- [ ] **References list** — all sources used throughout the project.
+- [ ] **AI Declaration** — list all AI tools used, where/how they were used. *(Mandatory — omitting this means the work will NOT be graded.)*
+- [ ] Export report as PDF named `GroupName_report.pdf`.
+
+#### Demonstration Video (5 pts)
+- [ ] Record a **maximum 5-minute** demonstration of the running REPS system (all 5 use cases).
+- [ ] Upload video to **OneDrive**.
+- [ ] Create `GroupName_link.txt` containing the OneDrive video link.
+
+#### Final Submission Package
+- [ ] Compress `GroupName_report.pdf` + `GroupName_link.txt` into `GroupName_project.zip`.
+- [ ] **Submit** `GroupName_project.zip` to Moodle (only one group member submits).
+- [ ] **Push** final codebase to GitHub.
+
+#### Code Quality
+- [ ] Ensure all source files include the team member names header comment.
+
+---
+
+### Everyone — Individual Submissions
+
+- [ ] **Mahi** — Submit own `GroupName_YourName_PeerEvaluation` form to Moodle by May 3rd 23:59.
+- [ ] **Oyshe** — Submit own `GroupName_YourName_PeerEvaluation` form to Moodle by May 3rd 23:59.
+- [ ] **Nguyen** — Submit own `GroupName_YourName_PeerEvaluation` form to Moodle by May 3rd 23:59.
+
+> ⚠️ Peer evaluation affects **20% of your project points**. Every member must submit individually.
