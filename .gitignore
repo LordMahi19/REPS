@@ -1,0 +1,26 @@
+# Compiled class files
+*.class
+*.log
+
+# sbt specific files and folders
+.cache
+.history
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# IDE specific files (IntelliJ, VS Code, Metals)
+.idea/
+*.iml
+*.iws
+.vscode/
+.bsp/
+.metals/
+.bloop/
+
+# Mac OS specific (if anyone uses a Mac)
+.DS_Store
