@@ -42,9 +42,6 @@ sealed trait RepsResult[+A]:
    * @return a new RepsResult with the transformed value, or the original error
    */
   def map[B](f: A => B): RepsResult[B] =
-    // TODO: Mahi — implement using pattern matching
-    //   Success(value) => Success(f(value))
-    //   Failure(msg)   => Failure(msg)
     this match
       case Success(value) => Success(f(value))
       case Failure(msg)   => Failure(msg)
@@ -60,7 +57,6 @@ sealed trait RepsResult[+A]:
    * @return the result of the chained computation, or the original error
    */
   def flatMap[B](f: A => RepsResult[B]): RepsResult[B] =
-    // TODO: Mahi — implement using pattern matching
     this match
       case Success(value) => f(value)
       case Failure(msg)   => Failure(msg)
@@ -162,20 +158,49 @@ object RepsResult:
    *
    * From the project specification (Additional Resources):
    *   - The system expects the date format "DD/MM/YYYY".
-   *   - Display error message with example if format is incorrect.
+   *   - Invalid format → descriptive error with a correct example.
+   *   - No data for date → separate message guiding the user to pick another date.
    *
-   * @param dateStr the date string to validate
-   * @return Success with a parsed (day, month, year) tuple, or Failure with guidance
+   * Demonstrates: pattern matching, functional error handling (no exceptions thrown).
+   *
+   * @param dateStr the date string entered by the user
+   * @return Success((day, month, year)) if the format and values are valid,
+   *         or Failure with a user-friendly guidance message
    */
   def validateDateFormat(dateStr: String): RepsResult[(Int, Int, Int)] =
-    // TODO: Mahi — implement date validation
-    //   - Check format matches DD/MM/YYYY pattern
-    //   - Parse day, month, year
-    //   - Validate ranges (day 1-31, month 1-12, year reasonable)
-    //   - On error: include helpful message with example
-    //     e.g. "Invalid date format. Please enter the date in the format
-    //           'DD/MM/YYYY'. For example, enter '12/04/2024' for April 12, 2024."
-    RepsResult.failure("validateDateFormat not yet implemented")
+    // Step 1: Check the structural format with a regex — exactly DD/MM/YYYY
+    val datePattern = raw"""(\d{2})/(\d{2})/(\d{4})""".r
+    dateStr.trim match
+      case datePattern(dayStr, monthStr, yearStr) =>
+        // Step 2: Parse the numeric values
+        val day   = dayStr.toInt
+        val month = monthStr.toInt
+        val year  = yearStr.toInt
+        // Step 3: Validate that the numeric ranges make sense
+        if month < 1 || month > 12 then
+          RepsResult.failure(
+            s"Invalid month '$month'. Month must be between 01 and 12. " +
+            s"For example, enter '12/04/2024' for April 12, 2024."
+          )
+        else if day < 1 || day > 31 then
+          RepsResult.failure(
+            s"Invalid day '$day'. Day must be between 01 and 31. " +
+            s"For example, enter '12/04/2024' for April 12, 2024."
+          )
+        else if year < 2000 || year > 2100 then
+          RepsResult.failure(
+            s"Invalid year '$year'. Please enter a year between 2000 and 2100. " +
+            s"For example, enter '12/04/2024' for April 12, 2024."
+          )
+        else
+          // Step 4: All checks passed — return the parsed values
+          RepsResult.success((day, month, year))
+      case _ =>
+        // Step 5: Format did not match — give a clear error with the correct example
+        RepsResult.failure(
+          s"Invalid date format. Please enter the date in the format 'DD/MM/YYYY'. " +
+          s"For example, enter '12/04/2024' for April 12, 2024."
+        )
 
   /**
    * Validates that a list of values is non-empty before performing analysis.
