@@ -113,28 +113,29 @@ sbt test
 #### UC1 & UC4 — Models & Statistical Analysis
 - [x] Define the immutable `EnergySource` sealed enum (`Solar`, `Wind`, `Hydro`) with safe `fromString` parser.
 - [x] Define the immutable `EnergyReading` case class (startTime, endTime, energyMW).
-- [ ] Implement `mean` recursively in `StatisticsAnalysis.scala`.
-- [ ] Implement `median` recursively in `StatisticsAnalysis.scala`.
-- [ ] Implement `mode` recursively in `StatisticsAnalysis.scala`.
-- [ ] Implement `range` recursively in `StatisticsAnalysis.scala`.
-- [ ] Implement `midrange` recursively in `StatisticsAnalysis.scala`.
+- [x] Implement `mean` recursively in `StatisticsAnalysis.scala`.
+- [x] Implement `median` recursively in `StatisticsAnalysis.scala`.
+- [x] Implement `mode` recursively in `StatisticsAnalysis.scala`.
+- [x] Implement `range` recursively in `StatisticsAnalysis.scala`.
+- [x] Implement `midrange` recursively in `StatisticsAnalysis.scala`.
 
 #### Functional Programming Paradigm (required for full marks)
 - [x] Implement `RepsResult[A]` ADT with `map`, `flatMap`, `fold`, `getOrElse`, `attempt` (`utils/ErrorHandler.scala`).
-- [ ] Implement `validateDateFormat` — validate DD/MM/YYYY input with helpful error messages.
-- [ ] Implement at least one example of **currying** (e.g., a curried filter or analysis function).
-- [ ] Ensure **type parameterization** is demonstrated (e.g., `analyzeReadings[A]` in `StatisticsAnalysis`).
+- [x] Implement `validateDateFormat` — validate DD/MM/YYYY input with helpful error messages.
+- [x] Implement at least one example of **currying** (`curriedAnalysis` in `StatisticsAnalysis.scala`).
+- [x] Ensure **type parameterization** is demonstrated (`analyzeReadings[A]`, `curriedAnalysis[A]`, `RepsResult[A]`).
 
 #### CLI / View (UC1 & UC3)
-- [ ] Build the interactive text-based **main menu** in `Main.scala`:
+- [x] Build the interactive text-based **main menu** in `Main.scala`:
   - Load data (Solar / Wind / Hydro) from CSV.
   - Display a summary view of current energy generation per source (UC3).
   - Trigger analysis (mean, median, mode, range, midrange) from the menu.
   - Trigger alert check from the menu (calls `AlertSystem`).
 
 #### Code Quality (mandatory deliverable)
-- [ ] Ensure **all source files** include a header comment listing all team member names (Mahi, Oyshe, Nguyen).
-- [ ] Ensure all functions and classes are well-commented with descriptions.
+- [x] Ensure **all source files** include a header comment listing all team member names (Mahi, Oyshe, Nguyen).
+- [x] Ensure all functions and classes are well-commented with descriptions.
+
 
 ---
 
