@@ -157,9 +157,9 @@ sbt test
 #### Part II — Advanced Topic (Functor or Strictness/Laziness)
 - [x] Choose one topic: **Functor** or **Strictness/Laziness** (pick one concept within Strictness/Laziness).
 - [x] Write a **small but meaningful standalone Scala implementation** of the chosen topic in `advanced_topic/`.
-- [ ] Write the **Part B theory section** of the report (max 1 page): clear theoretical explanation + references.
-- [ ] **Export** the standalone implementation as a single file named `GroupName_project.scala`.
-- [ ] **Submit** `GroupName_project.scala` to Moodle (only one group member submits).
+- [x] Write the **Part B theory section** of the report (max 1 page): clear theoretical explanation + references.
+- [x] **Export** the standalone implementation as a single file named `MON_project.scala`.
+- [ ] **Submit** `MON_project.scala` to Moodle (only one group member submits).
 
 #### Code Quality
 - [x] Ensure all source files include the team member names header comment.
