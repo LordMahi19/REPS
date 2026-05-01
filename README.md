@@ -169,12 +169,12 @@ sbt test
 ### Nguyen (Alerts, Diagrams & Final Submission) — *Report + Video + Submission*
 
 #### UC5 — Alert System
-- [ ] Implement `detectIssues` in `AlertSystem.scala`:
+- [x] Implement `detectIssues` in `AlertSystem.scala`:
   - Detect **low energy output** (below configurable MW threshold).
   - Detect **equipment malfunction** (e.g., consecutive zero readings).
   - Generate `Alert` objects with appropriate `AlertSeverity` (Info / Warning / Critical).
-- [ ] Implement `formatAlerts` — display alerts clearly to operators.
-- [ ] Ensure error handling uses `RepsResult` where applicable.
+- [x] Implement `formatAlerts` — display alerts clearly to operators.
+- [x] Ensure error handling uses `RepsResult` where applicable.
 
 #### Report Part A — Diagrams (7 pts)
 - [ ] Draw **Sequence Diagram for UC1** — Monitor & control energy sources.
