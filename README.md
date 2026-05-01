@@ -177,13 +177,13 @@ sbt test
 - [x] Ensure error handling uses `RepsResult` where applicable.
 
 #### Report Part A — Diagrams (7 pts)
-- [ ] Draw **Sequence Diagram for UC1** — Monitor & control energy sources.
-- [ ] Draw **Sequence Diagram for UC2** — Collect & store energy data to file.
-- [ ] Draw **Sequence Diagram for UC3** — View energy generation & storage capacity.
-- [ ] Draw **Sequence Diagram for UC4** — Analyze, filter, sort & search data.
-- [ ] Draw **Sequence Diagram for UC5** — Detect issues & generate alerts.
-- [ ] Draw **Class Diagram** — showing connections between all entities (models, analysis, alerts, io, utils).
-- [ ] Use proper diagram tools (no paper/pen drawings).
+- [x] Draw **Sequence Diagram for UC1** — Monitor & control energy sources.
+- [x] Draw **Sequence Diagram for UC2** — Collect & store energy data to file.
+- [x] Draw **Sequence Diagram for UC3** — View energy generation & storage capacity.
+- [x] Draw **Sequence Diagram for UC4** — Analyze, filter, sort & search data.
+- [x] Draw **Sequence Diagram for UC5** — Detect issues & generate alerts.
+- [x] Draw **Class Diagram** — showing connections between all entities (models, analysis, alerts, io, utils).
+- [x] Use proper diagram tools (no paper/pen drawings).
 
 #### Report Structure (mandatory for grading)
 - [ ] **Title page** — project name, all team member names, group number.
