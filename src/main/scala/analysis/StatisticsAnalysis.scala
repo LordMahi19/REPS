@@ -18,6 +18,7 @@
 package analysis
 
 import models.EnergyReading
+import scala.annotation.tailrec
 import utils.RepsResult
 
 /**
@@ -43,30 +44,38 @@ object StatisticsAnalysis:
   // -------------------------------------------------------------------------
 
   /**
-   * Recursively sums all elements of a list.
-   * Base case: empty list → 0.0
-   * Recursive case: head + sum(tail)
+   * Recursively sums all elements of a list (tail-recursive).
+   * Uses an accumulator to avoid stack overflow on large lists.
+   * Base case: empty list → accumulated sum
+   * Recursive case: add head to accumulator, recurse on tail
    *
    * @param values the list to sum
    * @return the total sum
    */
   private def recursiveSum(values: List[Double]): Double =
-    values match
-      case Nil          => 0.0
-      case head :: tail => head + recursiveSum(tail)
+    @tailrec
+    def go(remaining: List[Double], acc: Double): Double =
+      remaining match
+        case Nil          => acc
+        case head :: tail => go(tail, acc + head)
+    go(values, 0.0)
 
   /**
-   * Recursively counts all elements of a list.
-   * Base case: empty list → 0
-   * Recursive case: 1 + count(tail)
+   * Recursively counts all elements of a list (tail-recursive).
+   * Uses an accumulator to avoid stack overflow on large lists.
+   * Base case: empty list → accumulated count
+   * Recursive case: increment accumulator, recurse on tail
    *
    * @param values the list to count
    * @return the number of elements
    */
   private def recursiveCount(values: List[Double]): Int =
-    values match
-      case Nil          => 0
-      case _ :: tail    => 1 + recursiveCount(tail)
+    @tailrec
+    def go(remaining: List[Double], acc: Int): Int =
+      remaining match
+        case Nil       => acc
+        case _ :: tail => go(tail, acc + 1)
+    go(values, 0)
 
   /**
    * Recursively finds the minimum value in a list.
@@ -114,17 +123,21 @@ object StatisticsAnalysis:
         else head :: recursiveInsert(value, tail)
 
   /**
-   * Recursively sorts a list in ascending order using insertion sort.
-   * Base case: empty list is already sorted.
-   * Recursive case: sort the tail, then insert the head in the right place.
+   * Recursively sorts a list in ascending order using insertion sort (tail-recursive).
+   * Uses an accumulator (the growing sorted list) to avoid stack overflow.
+   * Base case: no more elements → return the accumulated sorted list.
+   * Recursive case: insert head into the sorted accumulator, recurse on tail.
    *
    * @param values the list to sort
    * @return a new list sorted in ascending order
    */
   private def insertionSort(values: List[Double]): List[Double] =
-    values match
-      case Nil          => Nil
-      case head :: tail => recursiveInsert(head, insertionSort(tail))
+    @tailrec
+    def go(remaining: List[Double], sorted: List[Double]): List[Double] =
+      remaining match
+        case Nil          => sorted
+        case head :: tail => go(tail, recursiveInsert(head, sorted))
+    go(values, Nil)
 
   /**
    * Recursively builds a frequency map (value → count) from a list.

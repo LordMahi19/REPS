@@ -271,17 +271,17 @@ object AlertSystem:
       else Success(alerts)
 
     validated match
-      case Failure(msg) => List(s"✓ $msg — all systems nominal.")
+      case Failure(msg) => List(s"[OK] $msg - all systems nominal.")
       case Success(alertList) =>
         alertList.map { alert =>
           val severityIcon = alert.severity match
-            case AlertSeverity.Info     => "ℹ️  [INFO]    "
-            case AlertSeverity.Warning  => "⚠️  [WARNING] "
-            case AlertSeverity.Critical => "🚨 [CRITICAL]"
+            case AlertSeverity.Info     => "[INFO]    "
+            case AlertSeverity.Warning  => "[WARNING] "
+            case AlertSeverity.Critical => "[CRITICAL]"
 
           val timeInfo = alert.reading match
             case Some(r) => s" | Time: ${r.startTime}"
             case None    => ""
 
-          s"$severityIcon | ${alert.source}$timeInfo — ${alert.message}"
+          s"$severityIcon | ${alert.source}$timeInfo - ${alert.message}"
         }

@@ -389,7 +389,7 @@ def alertMenu(all: List[EnergyReading]): Unit =
 def printBanner(): Unit =
   println("=" * 60)
   println("  Renewable Energy Plant System (REPS)")
-  println("  Functional Programming — LUT University")
+  println("  Functional Programming - LUT University")
   println("  Team: Mahi | Oyshe | Nguyen")
   println("=" * 60)
   println()
@@ -397,22 +397,22 @@ def printBanner(): Unit =
 /** Prints the main menu options. */
 def printMenuOptions(): Unit =
   println()
-  println("  ┌─────────────────────────────────────────┐")
-  println("  │           REPS — Main Menu               │")
-  println("  ├─────────────────────────────────────────┤")
-  println("  │  1. View energy generation summary      │")
-  println("  │  2. Statistical analysis                │")
-  println("  │  3. Filter data by time period          │")
-  println("  │  4. Search data                         │")
-  println("  │  5. Detect alerts & issues              │")
-  println("  │  0. Exit                                │")
-  println("  └─────────────────────────────────────────┘")
+  println("  +-------------------------------------------+")
+  println("  |           REPS - Main Menu                |")
+  println("  +-------------------------------------------+")
+  println("  |  1. View energy generation summary        |")
+  println("  |  2. Statistical analysis                  |")
+  println("  |  3. Filter data by time period            |")
+  println("  |  4. Search data                           |")
+  println("  |  5. Detect alerts & issues                |")
+  println("  |  0. Exit                                  |")
+  println("  +-------------------------------------------+")
 
 /** Prints a single named statistic result. */
 def printStat(name: String, result: RepsResult[Double]): Unit =
   result match
     case Success(value) => println(f"  $name%-10s: $value%.4f MW")
-    case Failure(msg)   => println(s"  $name: Error — $msg")
+    case Failure(msg)   => println(s"  $name: Error - $msg")
 
 /** Formats a RepsResult[Double] as a string for display. */
 def formatResult(result: RepsResult[Double]): String =
